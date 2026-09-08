@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talysson Bruno Contador </title>
     <meta name="description" content="Escritório de contabilidade em João Pessoa - PB. Serviços de assessoria contábil, abertura de empresas, planejamento tributário e gestão financeira. Fale conosco!">
+    <meta name="google-site-verification" content="I51vfGtKI6IPAIpvzykn8BhojKj8L2AaI6sMeYRw5nE" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ===== RESET ===== */
@@ -587,7 +588,7 @@
     <div style="max-width: 950px; width: auto; margin-left: 10%; margin-right: 10%; position: relative; z-index: 2;">
         
        <h1 style="display: inline-flex; align-items: center; justify-content: flex-start; gap: 15px; font-size: 3.8rem; font-weight: 800; color: #ff9f1c; font-family: 'Segoe UI', Arial, sans-serif; letter-spacing: -0.5px; text-shadow: 0 2px 15px rgba(0,0,0,0.6); margin: -30px 0 10px -15px;">
-    <span>Talysson Bruno</span
+    <span>Talysson Bruno</span>
        </h1>
 
         <h2 style="font-size: 2.2rem; font-weight: 600; color: #fff; margin-bottom: 30px; letter-spacing: 0.5px; text-shadow: 0 2px 15px rgba(0,0,0,0.6);">
@@ -609,7 +610,7 @@
 </p>
 
         
-        <a href="https://wa.me/5583988482725?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20minhas%20duvidas!" " target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #ff9f1c, #ff6b6b); color: #fff; padding: 16px 40px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(255, 159, 28, 0.4); transition: all 0.3s ease;">
+        <a href="https://wa.me/5583988482725?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20minhas%20duvidas!" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #ff9f1c, #ff6b6b); color: #fff; padding: 16px 40px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(255, 159, 28, 0.4); transition: all 0.3s ease;">
             <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> Fale Conosco
         </a>
 
@@ -856,6 +857,18 @@
         background: #ffc107 !important;
         color: #04153f !important;
     }
+
+    .chat-btn-whatsapp {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: #25d366;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 0.85rem;
+    }
 </style>
 
 <!-- Ícone para abrir o Chatbot -->
@@ -972,14 +985,14 @@
             resposta: "Cuidamos de toda a gestão de colaboradores, elaboração de folha de pagamento, admissões, demissões, férias e encargos trabalhistas."
         },
         {
-    id: 4,
-    texto: "💬 Falar com Atendente / WhatsApp",
-    resposta: `Você será redirecionado para o nosso atendimento no WhatsApp.<br><br>
-               <a href="https://wa.me/5583988482725?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20minhas%20duvidas!" 
-                  target="_blank" 
-                  class="chat-btn-whatsapp">
-                   📲 Clique aqui para iniciar a conversa
-               </a>`
+            id: 4,
+            texto: "💬 Falar com Atendente / WhatsApp",
+            resposta: `Você será redirecionado para o nosso atendimento no WhatsApp.<br><br>
+                       <a href="https://wa.me/5583988482725?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20minhas%20duvidas!" 
+                          target="_blank" 
+                          class="chat-btn-whatsapp">
+                            📲 Clique aqui para iniciar a conversa
+                       </a>`
         }
     ];
 
@@ -996,10 +1009,7 @@
         opcoesChat.forEach(opcao => {
             const btn = document.createElement('button');
             btn.className = 'chat-btn-option';
-
-            // 2. REMOVENDO O ÍCONE DA SETA (<i class="fas fa-chevron-right"></i>)
-            btn.innerHTML = `${opcao.texto}`;
-
+            btn.innerHTML = opcao.texto;
             btn.onclick = () => selecionarOpcao(opcao);
             optionsList.appendChild(btn);
         });
@@ -1007,30 +1017,26 @@
 
     function selecionarOpcao(opcao) {
         const chatBody = document.getElementById('chat-body');
+        
+        const msgUsuario = document.createElement('div');
+        msgUsuario.className = 'chat-msg user';
+        msgUsuario.innerHTML = opcao.texto;
+        chatBody.appendChild(msgUsuario);
 
-        // Adiciona a escolha do usuário
-        const userMsg = document.createElement('div');
-        userMsg.className = 'chat-msg user';
-        userMsg.innerText = opcao.texto;
-        chatBody.appendChild(userMsg);
+        const optionsList = document.getElementById('chat-options-list');
+        if (optionsList) optionsList.remove();
 
-        // Remove as opções anteriores para manter a conversa limpa
-        const oldOptions = document.getElementById('chat-options-list');
-        if (oldOptions) oldOptions.remove();
-
-        // Resposta do Bot + Botão de Voltar ao Menu
         setTimeout(() => {
-            const botMsg = document.createElement('div');
-            botMsg.className = 'chat-msg bot';
-            botMsg.innerHTML = opcao.resposta;
-            chatBody.appendChild(botMsg);
+            const msgBot = document.createElement('div');
+            msgBot.className = 'chat-msg bot';
+            msgBot.innerHTML = opcao.resposta;
+            chatBody.appendChild(msgBot);
 
-            // Botão para Voltar ao Menu Inicial
-            const btnBack = document.createElement('button');
-            btnBack.className = 'chat-btn-option btn-back-menu';
-            btnBack.innerHTML = '↩️ Voltar ao Menu Inicial';
-            btnBack.onclick = carregarMenuInicial;
-            chatBody.appendChild(btnBack);
+            const btnVoltar = document.createElement('button');
+            btnVoltar.className = 'chat-btn-option btn-back-menu';
+            btnVoltar.innerHTML = "🔄 Voltar ao Menu Principal";
+            btnVoltar.onclick = carregarMenuInicial;
+            chatBody.appendChild(btnVoltar);
 
             chatBody.scrollTop = chatBody.scrollHeight;
         }, 400);
